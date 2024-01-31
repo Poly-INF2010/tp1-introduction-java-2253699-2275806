@@ -119,9 +119,7 @@ public class Point2d extends AbstractPoint {
      * @return Deep copy of the 2D point
      */
     @Override
-    public Point2d clone() throws CloneNotSupportedException{
-        Point2d clone = new Point2d();
-        clone.vector = Arrays.copyOf(this.vector, this.vector.length);
-        return clone;
+    public Point2d clone(){
+        return new Point2d(this.vector);
     }
 }
