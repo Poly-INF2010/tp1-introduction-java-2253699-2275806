@@ -48,7 +48,10 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape add(BaseShape shape) {
-        return new BaseShape(shape.coords);
+        for (Point2d coord : shape.coords) {
+            add(coord);
+        }
+        return this;
     }
 
     /** TODO
@@ -57,7 +60,10 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape addAll(Collection<Point2d> coords) {
-        return null;
+        for (Point2d coord : coords) {
+            add(coord);
+        }
+        return this;
     }
 
     /** TODO
@@ -66,8 +72,7 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape remove(Point2d coord) {
-        Point2d copiedPoint = new Point2d(coord.X(), coord.Y());
-        this.coords.remove(copiedPoint);
+        this.coords.remove(coord);
         return this;
     }
 
@@ -77,7 +82,10 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape remove(BaseShape shape) {
-        return new BaseShape(shape.coords);
+        for (Point2d coord : shape.coords) {
+            remove(coord);
+        }
+        return this;
     }
 
     /** TODO
@@ -86,7 +94,10 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape removeAll(Collection<Point2d> coords) {
-        return null;
+        for (Point2d coord : coords) {
+            this.coords.remove(coord);
+        }
+        return this;
     }
 
     /** TODO
@@ -94,7 +105,11 @@ public class BaseShape extends Transform implements Cloneable {
      * @param newCoords new coords to replace the old one
      * @return Updated BaseShape
      * */
-    public BaseShape replaceAll(Collection<Point2d> newCoords) { return null; }
+    public BaseShape replaceAll(Collection<Point2d> newCoords) {
+        this.coords.clear();
+        this.coords.addAll(newCoords);
+        return this;
+    }
 
     /** TODO
      * Return a shallow copy of the coordinates of the shape
@@ -116,12 +131,10 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Maximum X coordinate of the shape
      */
     public Double getMaxX() {
-        double maxX = 0;
-        if (!this.coords.isEmpty()) {
+        double maxX = -Double.MAX_VALUE;;
         for (Point2d point : this.coords) {
             maxX = Math.max(maxX, point.X());
-        }}
-        else maxX = -Double.MAX_VALUE;
+        }
         return maxX;
     }
 
@@ -129,35 +142,47 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Maximum Y coordinate of the shape
      */
     public Double getMaxY() {
-        return null;
+        double maxY = -Double.MAX_VALUE;;
+        for (Point2d point : this.coords) {
+            maxY = Math.max(maxY, point.Y());
+        }
+        return maxY;
     }
 
     /** TODO
      * @return 2D Point containing the maximum X and Y coordinates of the shape
      */
     public Point2d getMaxCoord() {
-        return null;
+        return new Point2d(getMaxX(), getMaxY());
     }
 
     /** TODO
      * @return Minimum X coordinate of the shape
      */
     public Double getMinX() {
-        return null;
+        double minX = Double.MAX_VALUE;
+        for (Point2d point : this.coords) {
+            minX = Math.min(minX, point.X());
+        }
+        return minX;
     }
 
     /** TODO
      * @return Minimum Y coordinate of the shape
      */
     public Double getMinY() {
-        return null;
+        double minY = Double.MAX_VALUE;
+        for (Point2d point : this.coords) {
+            minY = Math.min(minY, point.Y());
+        }
+        return minY;
     }
 
     /** TODO
      * @return 2D point containing the minimum X and Y coordinate of the shape
      */
     public Point2d getMinCoord() {
-        return null;
+        return new Point2d(getMinX(), getMinY());
     }
 
     /** TODO
