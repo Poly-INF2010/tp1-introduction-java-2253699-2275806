@@ -117,9 +117,11 @@ public class BaseShape extends Transform implements Cloneable {
      */
     public Double getMaxX() {
         double maxX = 0;
+        if (!this.coords.isEmpty()) {
         for (Point2d point : this.coords) {
             maxX = Math.max(maxX, point.X());
-        }
+        }}
+        else maxX = -Double.MAX_VALUE;
         return maxX;
     }
 
