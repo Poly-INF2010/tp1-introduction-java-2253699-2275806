@@ -17,7 +17,18 @@ public final class LetterFactory {
      * @return BaseShape containing the letter A
      */
     public static BaseShape create_A()  {
-        return null;
+
+        Rectangle firstBand = new Rectangle(maxWidth,maxHeight);
+        Rectangle secondBand = firstBand.clone();
+        secondBand.translate(secondBand.getCoords(),new Point2d(2.0,0.0));
+        Rectangle thirdBand = new Rectangle(halfMaxWidth,halfMaxHeight);
+        thirdBand.translate(thirdBand.getCoords(), new Point2d(2.0,1.0));
+        thirdBand.rotate(thirdBand.getCoords(), 90.0);
+        BaseShape a = new BaseShape();
+        a.addAll(firstBand.getCoords());
+        a.addAll(secondBand.getCoords());
+        a.addAll(thirdBand.getCoords());
+        return a;
     }
 
     /** TODO
